@@ -19,7 +19,8 @@ Version: %{version}
 Release: %{release}
 License: Open Source
 Group: Development/Languages
-Source0: https://github.com/Altiscale/rpms-rbenv/raw/alti6/rbenv.tar.gz
+Source0: https://github.com/Altiscale/rbenv
+Source1: https://github.com/Altiscale/ruby-build
 URL: https://github.com/rbenv
 
 %description
@@ -27,10 +28,11 @@ This RPM provides rbenv for switching between rubies, the versions of ruby appro
 
 %prep
 
-%setup -q
-mkdir -p opt/altiscale
-git clone git@github.com:Altiscale/rbenv.git opt/altiscale/rbenv
-git clone git@github.com:Altiscale/ruby-build.git opt/altiscale/rbenv/plugins/ruby-build
+mkdir -p /opt/altiscale
+git clone git@github.com:Altiscale/rbenv.git /opt/altiscale/rbenv
+rm -rf /opt/altiscale/rbenv/.git
+git clone git@github.com:Altiscale/ruby-build.git /opt/altiscale/rbenv/plugins/ruby-build
+rm -rf /opt/altiscale/rbenv/plugins/ruby-build/.git
 
 %build
 export RBENV_ROOT=/opt/altiscale/rbenv
