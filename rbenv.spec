@@ -19,8 +19,7 @@ Version: %{version}
 Release: %{release}
 License: Open Source
 Group: Development/Languages
-Source0: https://github.com/Altiscale/rbenv
-Source1: https://github.com/Altiscale/ruby-build
+Source0: https://github.com/Altiscale/rpms-rbenv/raw/alti6/rbenv.tar.gz
 URL: https://github.com/rbenv
 
 %description
