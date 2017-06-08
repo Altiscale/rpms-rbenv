@@ -19,9 +19,7 @@ Version: %{version}
 Release: %{release}
 License: Open Source
 Group: Development/Languages
-Source0: https://github.com/Altiscale/rpms-rbenv
-Source1: https://github.com/Altiscale/rpms-rubybuild
-URL: https://github.com/rbenv
+URL: https://github.com/Altiscale/rpms-rbenv
 
 %description
 This RPM provides rbenv for switching between rubies, the versions of ruby approved for development and production at Altiscale, and the bundler gem for installing additional gems.
