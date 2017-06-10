@@ -2,13 +2,24 @@
 export RBENV_ROOT=/opt/altiscale/rbenv
 export PATH="$RBENV_ROOT/bin:$PATH"
 
-# mock munges this symlink
+# fix the symlink that mock munges
 (cd $RBENV_ROOT/bin ; ln -sf ../libexec/rbenv rbenv)
 
+# initialize rbenv
 eval "$(rbenv init -)"
+
+# the ruby versons are the optional arguments to this script
 for RUBY in $@ ; do
+    # install the requested ruby version
     rbenv install $RUBY --verbose
+
+    # install bundler in the requested rubyversion
     rbenv shell $RUBY
     gem install bundler
+
+    # clean up (not really required)
     rbenv shell --unset
 done 
+
+# everyone needs to read the build artifacts
+chmod -R +r /opt/altiscale/rbenv

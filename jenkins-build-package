@@ -11,11 +11,11 @@ cd ${WORKSPACE}
 rm -rf *.rpm
 
 # install ruby dependencies
-# TODO: UNCOMMENT AFTER RELEASING: gem install alti_build_tools
+gem install alti_build_tools
 gem install fpm
 
 # initialize the mock and remember the directory for later
-# alti_mock command -i -c --print
+alti_mock command -i -c --print
 MOCKDIR=$($(alti_mock command --print --dryrun))
 
 # install dependencies
@@ -32,11 +32,12 @@ FPMDIR=${MOCKDIR}/opt/altiscale
 # create the package
 fpm --verbose \
     -s dir -t rpm \
-    -n altiscale-rbenv 
+    -n altiscale-rbenv \
     --epoch 1 \
     -v 1.0 \
     -C ${FPMDIR} \
     --prefix /opt/altiscale \
+    --directories /opt/altiscale/rbenv \
     --maintainer engineering-productivity@altiscale.com \
     --vendor SAP \
     --provides altiscale-rbenv \
