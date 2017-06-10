@@ -1,6 +1,10 @@
 #!/bin/bash -ex
 export RBENV_ROOT=/opt/altiscale/rbenv
 export PATH="$RBENV_ROOT/bin:$PATH"
+
+# mock munges this symlink
+(cd $RBENV_ROOT/bin ; ln -sf ../libexec/rbenv rbenv)
+
 eval "$(rbenv init -)"
 for RUBY in $@ ; do
     rbenv install $RUBY --verbose
