@@ -1,0 +1,42 @@
+#!/bin/bash -ex
+
+# set defaults for variables normally set by jenkins
+${WORKSPACE:=.}
+${BUILD_NUMBER:=test}
+${RUBIES:='2.3.1 2.3.3'}
+
+cd ${WORKSPACE}
+
+# remove old artifacts
+rm -rf *.rpm
+
+# install ruby dependencies
+gem install alti_build_tools -v '~> 0.11'
+gem install fpm
+
+# initialize the mock and remember the directory for later
+alti_mock command -i -c --print
+MOCKDIR=$($(alti_mock command --print --dryrun))
+
+alti_mock command --copyin rbenv /opt/altiscale/rbenv
+alti_mock command --copyin ruby-build /opt/altiscale/rbenv/plugins/ruby-build
+alti_mock command --copyin rpms-rbenv/rbenv-mock-build /tmp/rbenv-mock-build
+alti_mock command --chroot "/tmp/rbenv-mock-build ${RUBIES}"
+
+FPMDIR=${MOCKDIR}/opt/altiscale
+
+# create the package
+fpm --verbose \
+    -s dir -t rpm \
+    -n altiscale-rbenv 
+    --epoch 1 \
+    -v 1.0 \
+    -C ${MOCKDIR}/opt/altiscale \
+    --prefix /opt/altiscale \
+    --maintainer engineering-productivity@altiscale.com \
+    --vendor SAP \
+    --provides altiscale-rbenv \
+    --iteration ${BUILD_NUMBER} \
+    --rpm-user root \
+    --rpm-group root \
+    rbenv

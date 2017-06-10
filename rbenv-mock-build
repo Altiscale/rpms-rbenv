@@ -1,0 +1,10 @@
+#!/bin/bash -ex
+export RBENV_ROOT=/opt/altiscale/rbenv
+export PATH="$RBENV_ROOT/bin:$PATH"
+eval "$(rbenv init -)"
+for RUBY in $@ ; do
+    rbenv install $RUBY --verbose
+    rbenv shell $RUBY
+    gem install bundler
+    rbenv shell --unset
+done 
