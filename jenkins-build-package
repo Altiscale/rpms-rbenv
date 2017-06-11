@@ -30,14 +30,16 @@ alti_mock command "--chroot /tmp/rbenv-mock-build ${RUBIES}"
 
 FPMDIR=${MOCKDIR}/opt/altiscale
 
-# generate the package description
-: read -r -d '' FPMDESC <<EOF
+# Generate the package description. A valid delimiter for
+# read is required for read to return a 0 exit code.
+read -r -d '@' FPMDESC <<EOF
 Provides system rbenv with these versions of ruby: ${RUBIES}
 After installing this package, use rbenv as follows:
   export RBENV_ROOT=/opt/altiscale/rbenv
   export PATH="\$RBENV_ROOT/bin:\$PATH"
   eval "\$(rbenv init -)"
   rbenv shell <$(echo $RUBIES | sed 's/ /|/g')>
+@
 EOF
 
 # create the package
