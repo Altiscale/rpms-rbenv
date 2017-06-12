@@ -24,9 +24,9 @@ alti_mock command '--install openssl-devel readline-devel zlib-devel wget'
 
 # copy sources into the mock, removing git directories
 alti_mock command '--copyin rbenv /opt/altiscale/rbenv'
-alti_mock command '--chroot rm -rf /opt/altiscale/rbenv/.git'
+alti_mock command "--chroot 'rm -rf /opt/altiscale/rbenv/.git'"
 alti_mock command '--copyin ruby-build /opt/altiscale/rbenv/plugins/ruby-build'
-alti_mock command '--chroot rm -rf /opt/altiscale/rbenv/plugins/ruby-build/.git'
+alti_mock command "--chroot 'rm -rf /opt/altiscale/rbenv/plugins/ruby-build/.git'"
 alti_mock command '--copyin rpms-rbenv/rbenv-mock-build /tmp/rbenv-mock-build'
 
 # do the build inside the mock
